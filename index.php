@@ -7,9 +7,36 @@ $database_name = "fakultet";
 
 $conn = mysqli_connect($servername, $db_username, $db_password, $database_name);
 
-if($conn){
-    echo "Uspesno";
+if(!$conn){
+    die("Neuspesna konekcija");
 }
+
+if($_SERVER['REQUEST_METHOD'] == "POST"){
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        $sql = "SELECT admin_id, password FROM admins WHERE username = ?";
+
+        $run = $conn->prepare($sql);
+        $run->bind_param("s", $username);
+        $run->execute();
+
+        $results = $run->get_result();
+
+        if($results->num_rows == 1){
+            $admin = $results->fetch_assoc();
+
+            if($admin['password'] == $password){
+                echo"Password je tacan";
+        } else{
+            echo "password nije tacan";
+        }
+    }
+
+} else {
+    echo"nije uspesno";
+}
+
 
 ?>
 
