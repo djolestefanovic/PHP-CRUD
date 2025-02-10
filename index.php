@@ -1,15 +1,6 @@
 <?php
 
-$servername = "localhost";
-$db_username = "root";
-$db_password = "";
-$database_name = "fakultet";
-
-$conn = mysqli_connect($servername, $db_username, $db_password, $database_name);
-
-if(!$conn){
-    die("Neuspesna konekcija");
-}
+require_once 'config.php';
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
         $username = $_POST['username'];
@@ -26,22 +17,24 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         if($results->num_rows == 1){
             $admin = $results->fetch_assoc();
 
-            if($admin['password'] == $password){
-                echo"Password je tacan";
+            if(password_verify($password, $admin['password'])){
+               $_SESSION['admin_id'] = $admin['admin_id']; 
+               header('location:admin_dashboard.php');
         } else{
-            echo "password nije tacan";
+            $_SESSION['error'] = "Netacan password!";
+            header('location: index.php');
+            exit(); // kad se radi redirect mora da ide exit da se dole php kod ne bi izvrsavao
         }
+    } else {
+        $_SESSION['error'] = "Netacan username";
+        header('location: index.php');
+        exit();
     }
 
-} else {
-    echo"nije uspesno";
-}
+} 
 
 
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html>
@@ -52,6 +45,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 <body>
+
+<?php
+if(isset($_SESSION['error'])){
+    echo $_SESSION['error'] . "<br>";
+    unset($_SESSION["error"]);
+}
+
+?>
 
 <form action="" method="POST">
     Username: <input type="text" name="username"><br>
