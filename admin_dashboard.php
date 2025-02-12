@@ -31,11 +31,7 @@ if(!isset($_SESSION['admin_id'])){
                 Phone Number: <input class="form-control" type="text" name="phone_number"><br>
                 Training Plan:
                 <select class="form-control" name="training_plan_id">
-                    <?php foreach($training_plans as $plan): ?>
-                        <option value="<?= $plan['plan_id']?>">
-                            <?= $plan['name']?>
-                        </option>
-                       <?php endforeach; ?>
+                    
                        </select><br>
                        <input type="hidden" name="photo_path" id="photoPathInput">
                        <div id="dropzone-upload" class="dropzone"></div>

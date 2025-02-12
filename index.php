@@ -43,6 +43,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Admin Login</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
 
@@ -57,7 +58,7 @@ if(isset($_SESSION['error'])){
 <form action="" method="POST">
     Username: <input type="text" name="username"><br>
     Password: <input type="password" name="password"><br>
-    <input type="submit" value="Login">
+    <button type="submit" class="btn btn-primary">Login</button>
 </form>
     
 </body>
