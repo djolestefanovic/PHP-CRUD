@@ -20,31 +20,33 @@ if(!isset($_SESSION['admin_id'])){
 </head>
 <body>
 
-<div class = "container">
+<div class ="container">
     <div class="row mb-5">
-        <div class = "col-md-6">
-            <h2>Register Member</h2>
-            <form action="register_member.php" method="post" enctype="multipart/form-data">
+        <div class ="col-md-6">
+            <h2>Register Student</h2>
+            <form action="register_student.php" method="post" enctype="multipart/form-data">
                 First Name: <input class="form-control" type="text" name="first_name"><br>
                 Last Name: <input class="form-control" type="text" name="last_name"><br>
                 Email: <input class="form-control" type="email" name="email"><br>
                 Phone Number: <input class="form-control" type="text" name="phone_number"><br>
-                Training Plan:
-                <select class="form-control" name="training_plan_id">
-                    
-                       </select><br>
-                       <input type="hidden" name="photo_path" id="photoPathInput">
-                       <div id="dropzone-upload" class="dropzone"></div>
+                Session Plan:
+                <select class="form-control" name="session_plan_id">
+                    <option value="" disabled selected>Session Plan</option>
+                    <option value="1">12 sessions plan</option>
+                    <option value="2">30 sessions plan</option>                    
+                </select><br>
+                <input type="hidden" name="photo_path" id="photoPathInput">
 
-                       <input class="btn btn-primary mt-3" type="submit" value="Register Member">
+                <div id="dropzone-upload" class="dropzone"></div>
+
+                <input class="btn btn-primary mt-3" type="submit" value="Register Member">
                 </form>  
-                </select>
-            </form>
         </div>
     </div>
 </div>
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 </body>
+</html>
