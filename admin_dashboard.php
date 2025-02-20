@@ -71,7 +71,7 @@ if(!isset($_SESSION['admin_id'])){
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
 <script>
-    Dropzone.option.dropzoneUpload = {
+    Dropzone.options.dropzoneUpload = {
         url: "upload_photo.php",
         paramName: "photo",
         maxFilesize: 20, //MB
