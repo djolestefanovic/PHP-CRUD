@@ -44,6 +44,45 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <title>Admin Login</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        /* Centriranje sadržaja na sredinu ekrana */
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center; /* Horizontalno centriranje */
+            align-items: center;     /* Vertikalno centriranje */
+            height: 100vh;           /* Visina ekrana */
+        }
+
+        .login-form {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            background-color: #fff;
+        }
+
+        .login-form input {
+            margin-bottom: 15px;
+        }
+
+        .login-form img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .alert {
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body>
 
@@ -55,7 +94,7 @@ if(isset($_SESSION['error'])){
 
 ?>
 
-<form action="" method="POST">
+<form action="" method="POST" class="login-form">
     Username: <input type="text" name="username"><br>
     Password: <input type="password" name="password"><br>
     <button type="submit" class="btn btn-primary">Login</button>

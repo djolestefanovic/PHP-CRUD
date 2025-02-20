@@ -31,6 +31,72 @@ if(!isset($_SESSION['admin_id'])){
 <?php endif; ?>
 
     <div class ="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Students List</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Professor</th>
+                            <th>Photo</th>
+                            <th>Session Plan</th>
+                            <th>Access Card</th>
+                            <th>Created At</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $sql = "SELECT * FROM students";
+
+                        $run = $conn ->query($sql);
+
+                        $results = $run->fetch_all(MYSQLI_ASSOC);
+
+                        foreach($results as $result) : ?>
+                        
+                            <tr>
+                                <td><?php echo $result['first_name']; ?></td>
+                                <td><?php echo $result['last_name']; ?></td>
+                                <td><?php echo $result['email']; ?></td>
+                                <td><?php echo $result['phone_number']; ?></td>
+                                <td><?php echo $result['professor_id']; ?></td>
+                                <td><img style="width:60px" src="<?php echo $result['photo_path']; ?>"></td>
+                                <td><?php
+                                
+                                 $plan_id = $result['session_plan_id'];
+                                 $sql = "SELECT * FROM session_plans WHERE plan_id = ?";
+                                 $run = $conn ->prepare($sql);
+                                 $run->bind_param('i', $plan_id);
+                                 $run->execute();
+
+                                 $results = $run->get_result() ;
+                                 $results = $results->fetch_assoc();
+
+                                 echo $results['name'];
+
+                                ?></td>
+                                <td><a target="_blank" href="?php echo $result['acces_card_pdf_path']; ?>">Access Card</a></td>
+                                <td><?php
+                                
+                                 $create_at = strtotime($result['created_at']);
+                                 $new_date = date("d/m/Y", $create_at);
+                                 echo $new_date;
+                                  ?></td>
+                                <td><button>DELETE</button></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
         <div class="row mb-5">
             <div class ="col-md-6">
                 <h2>Register Student</h2>
@@ -60,7 +126,7 @@ if(!isset($_SESSION['admin_id'])){
 
                     <div id="dropzone-upload" class="dropzone"></div>
 
-                    <input class="btn btn-primary mt-3" type="submit" value="Register Member">
+                    <input class="btn btn-primary mt-3" type="submit" value="Confirm">
                     </form>  
         </div>
     </div>
