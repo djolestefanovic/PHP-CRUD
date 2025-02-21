@@ -51,7 +51,7 @@ if(!isset($_SESSION['admin_id'])){
             overflow: hidden;
         }
         .table th {
-            background-color: #007bff;
+            background-color:rgb(156, 168, 158);
             color: white;
             text-align: center;
         }
@@ -89,6 +89,9 @@ if(!isset($_SESSION['admin_id'])){
         .form-control {
             border-radius: 5px;
         }
+        .export-button {
+    margin-left: 10px; /* Povećaj ako treba više razmaka */
+}
 
     </style>
 </head>
@@ -242,7 +245,7 @@ if(!isset($_SESSION['admin_id'])){
 
                     <div id="dropzone-upload" class="dropzone"></div>
 
-                    <input class="btn btn-primary mt-3" type="submit" value="Confirm">
+                    <input class="btn btn-success mt-3" type="submit" value="Confirm">
                     </form>  
         </div>
         <div class="col-md-6">
@@ -252,7 +255,7 @@ if(!isset($_SESSION['admin_id'])){
                     Last Name: <input class="form-control" type="text" name="last_name"><br>
                     Email: <input class="form-control" type="email" name="email"><br>
                     Phone Number: <input class="form-control" type="text" name="phone_number"><br>
-                    <input class="btn btn-primary" type="submit" value="Confirm">
+                    <input class="btn btn-success mt-3" type="submit" value="Confirm">
 
             </form>
 
@@ -281,7 +284,7 @@ if(!isset($_SESSION['admin_id'])){
               </option>
               <?php endforeach; ?>
             </select>
-            <button type="submit" class="btn btn-primary">Assign Professor</button>
+            <button type="submit" class="btn btn-success mt-3">Assign Professor</button>
     </div>
 </div>
 
