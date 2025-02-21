@@ -35,6 +35,7 @@ if(!isset($_SESSION['admin_id'])){
         <div class="row">
             <div class="col-md-12">
                 <h2>Students List</h2>
+                <a href="export.php?what=students" class="btn btn-success btn-sm">Export</a>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -52,11 +53,18 @@ if(!isset($_SESSION['admin_id'])){
                     </thead>
                     <tbody>
                         <?php
-                        $sql = "SELECT * FROM students";
-
+                       $sql = "SELECT students.*,
+                       session_plans.name AS session_plan_name,
+                       professors.first_name AS professor_first_name,
+                       professors.last_name AS trainer_last_name
+                       FROM `students`
+                       LEFT JOIN `session_plans` ON students.session_plan_id = session_plans.plan_id
+                       LEFT JOIN `professors` ON students.professor_id = professors.professor_id";
+               
                         $run = $conn ->query($sql);
 
                         $results = $run->fetch_all(MYSQLI_ASSOC);
+                        $select_students = $results;
 
                         foreach($results as $result) : ?>
                         
@@ -65,22 +73,16 @@ if(!isset($_SESSION['admin_id'])){
                                 <td><?php echo $result['last_name']; ?></td>
                                 <td><?php echo $result['email']; ?></td>
                                 <td><?php echo $result['phone_number']; ?></td>
-                                <td><?php echo $result['professor_id']; ?></td>
-                                <td><img style="width:60px" src="<?php echo $result['photo_path']; ?>"></td>
-                                <td><?php
-                                
-                                 $plan_id = $result['session_plan_id'];
-                                 $sql = "SELECT * FROM session_plans WHERE plan_id = ?";
-                                 $run = $conn ->prepare($sql);
-                                 $run->bind_param('i', $plan_id);
-                                 $run->execute();
-
-                                 $results = $run->get_result() ;
-                                 $results = $results->fetch_assoc();
-
-                                 echo $results['name'];
+                                <td><?php 
+                                if($result['professor_first_name']) {
+                                    echo $result['professor_first_name'] . " " . $result['last_name'];
+                                } else {
+                                    echo "Nema profesora";
+                                }
 
                                 ?></td>
+                                <td><img style="width:60px" src="<?php echo $result['photo_path']; ?>"></td>
+                                <td><?php echo $result['session_plan_name']?></td>
                                 <td><a target="_blank" href="?php echo $result['acces_card_pdf_path']; ?>">Access Card</a></td>
                                 <td><?php
                                 
@@ -88,12 +90,53 @@ if(!isset($_SESSION['admin_id'])){
                                  $new_date = date("d/m/Y", $create_at);
                                  echo $new_date;
                                   ?></td>
-                                <td><button>DELETE</button></td>
+                                <td>
+                                <form action="delete_student.php" method="POST">
+                                <input type="hidden" name="student_id" value="<?php echo $result['student_id']; ?>">
+                                <button>DELETE</button>
+                                </form>
+                            </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
 
                 </table>
+            </div>
+            <div class="col-md-12">
+            <h2>Professors List</h2>
+            <a href="export.php?what=professors" class="btn btn-success btn-sm">Export</a>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Created At</th>   
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                 $sql = "SELECT * FROM professors";
+
+                                 $run = $conn ->query($sql);
+
+                                 $results = $run->fetch_all(MYSQLI_ASSOC);
+                                 $select_professors = $results;
+         
+                                 foreach($results as $result) : ?>
+
+                                 <tr>
+                                    <td><?php echo $result['first_name']; ?></td>
+                                    <td><?php echo $result['last_name']; ?></td>
+                                    <td><?php echo $result['email']; ?></td>
+                                    <td><?php echo $result['phone_number']; ?></td>
+                                    <td><?php echo date("F jS, Y", strtotime($result['created_at'])); ?></td>
+                                 </tr>
+
+                                <?php endforeach; ?>
+                            </tbody>
+                            </table>         
             </div>
         </div>
 
@@ -129,6 +172,43 @@ if(!isset($_SESSION['admin_id'])){
                     <input class="btn btn-primary mt-3" type="submit" value="Confirm">
                     </form>  
         </div>
+        <div class="col-md-6">
+        <h2>Register Professor</h2>
+            <form action ="register_professor.php" method="POST">
+                    First Name: <input class="form-control" type="text" name="first_name"><br>
+                    Last Name: <input class="form-control" type="text" name="last_name"><br>
+                    Email: <input class="form-control" type="email" name="email"><br>
+                    Phone Number: <input class="form-control" type="text" name="phone_number"><br>
+                    <input class="btn btn-primary" type="submit" value="Confirm">
+
+            </form>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6"></div>
+        <h2>Assing Professor to Student</h2>
+        <form action ="assign_professor.php" method="POST">
+            <label for="">Select Student</label>
+            <select name="student" class="form-select">
+              <?php
+              foreach($select_students as $student) : ?>
+              <option value="<?php echo $student['student_id'] ?>">
+                <?php echo $student['first_name'] . " " . $student['last_name']; ?>
+              </option>
+              <?php endforeach; ?>
+
+            </select>
+            <label for="">Select Professor</label>
+            <select name="professor" class="form-select">
+            <?php
+              foreach($select_professors as $professor) : ?>
+              <option value="<?php echo $professor['professor_id'] ?>">
+                <?php echo $professor['first_name'] . " " . $professor['last_name']; ?>
+              </option>
+              <?php endforeach; ?>
+            </select>
+            <button type="submit" class="btn btn-primary">Assign Professor</button>
     </div>
 </div>
 
