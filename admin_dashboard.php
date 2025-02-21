@@ -18,6 +18,79 @@ if(!isset($_SESSION['admin_id'])){
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <style>
+                
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            background-color: #343a40 !important;
+        }
+        .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+        }
+        .navbar a {
+            color: white !important;
+        }
+
+        .table {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .table th {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+        }
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        .table img {
+            border-radius: 50%;
+            border: 2px solid #ddd;
+        }
+        
+        .btn {
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .btn-primary {
+            background-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .dropzone {
+            border: 2px dashed #007bff;
+            padding: 20px;
+            text-align: center;
+            background: #f1f9ff;
+            border-radius: 8px;
+        }
+
+        .form-control {
+            border-radius: 5px;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -93,7 +166,7 @@ if(!isset($_SESSION['admin_id'])){
                                 <td>
                                 <form action="delete_student.php" method="POST">
                                 <input type="hidden" name="student_id" value="<?php echo $result['student_id']; ?>">
-                                <button>DELETE</button>
+                                <button type="button" class="btn btn-danger">DELETE</button>
                                 </form>
                             </td>
                             </tr>

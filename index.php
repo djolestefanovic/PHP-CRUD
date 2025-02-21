@@ -79,7 +79,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         }
 
         .login-form img {
-            width: 250px;
+            width: 270px;
             height: auto;
             margin-bottom: 20px;
         }
