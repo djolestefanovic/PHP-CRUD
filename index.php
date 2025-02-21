@@ -37,13 +37,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="sr">
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Admin Login</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         /* Centriranje sadržaja na sredinu ekrana */
@@ -56,49 +56,56 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             display: flex;
             justify-content: center; /* Horizontalno centriranje */
             align-items: center;     /* Vertikalno centriranje */
-            height: 100vh;           /* Visina ekrana */
+            height: 100vh;           /* Visina celog ekrana */
+            background-color: #f4f4f4;
         }
 
         .login-form {
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             width: 100%;
             max-width: 400px;
             background-color: #fff;
         }
 
         .login-form input {
+            width: 100%;
+            padding: 10px;
             margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
 
         .login-form img {
-            width: 100px;
+            width: 250px;
             height: auto;
             margin-bottom: 20px;
         }
-
-        .alert {
-            margin-bottom: 15px;
-        }
+        
     </style>
 </head>
 <body>
 
-<?php
-if(isset($_SESSION['error'])){
-    echo $_SESSION['error'] . "<br>";
-    unset($_SESSION["error"]);
-}
+<div class="login-container">
+    <div class="login-form">
+        <img src="photos/login.png" alt="Login Logo" class="img">
+        <?php
+       
+        if(isset($_SESSION['error'])){
+            echo '<div class="alert alert-danger">' . $_SESSION['error'] . '</div>';
+            unset($_SESSION["error"]);
+        }
+        ?>
+        
+        <form action="" method="POST">
+            <input type="text" name="username" class="form-control" placeholder="Username" required><br>
+            <input type="password" name="password" class="form-control" placeholder="Password" required><br>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+    </div>
+</div>
 
-?>
-
-<form action="" method="POST" class="login-form">
-    Username: <input type="text" name="username"><br>
-    Password: <input type="password" name="password"><br>
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
-    
 </body>
 </html>
